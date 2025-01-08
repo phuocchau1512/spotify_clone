@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup_or_signin.dart';
 import 'package:spotify_clone/presentation/choose_mode/bloc/theme_cubit.dart';
 
 import '../../../common/widgets/button/basic_app_button.dart';
@@ -16,8 +18,7 @@ class ChooseModePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
         body: Stack(
           children: [
             Container(
@@ -61,40 +62,17 @@ class ChooseModePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
-                        children:[
-                          ClipOval(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX:10,sigmaY:10),
-                            child: Container(
-                              height: 70,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff30393C).withOpacity(0.5),
-                                shape:  BoxShape.circle
-                              ),
-                              child: SvgPicture.asset(
-                                AppVectors.moon,
-                                fit: BoxFit.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Dark Mode',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: AppColors.grey
-                            ),
-                          )
-                        ]
-                      ),
-                      const SizedBox(width: 40),
-                      Column(
                         children:[ GestureDetector(
                           onTap: (){
                             context.read<ThemeCubit>().updateTheme(ThemeMode.dark);
+                            Fluttertoast.showToast(
+                              msg: "Light Mode Activated!",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.black,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
                           },
                           child: ClipOval(
                             child: BackdropFilter(
@@ -125,39 +103,49 @@ class ChooseModePage extends StatelessWidget {
                           )
                         ]
                       ),
+                      const SizedBox(width: 40),
                       Column(
-                          children:[ GestureDetector(
-                            onTap: (){
+                        children: [
+                          GestureDetector(
+                            onTap: () {
                               context.read<ThemeCubit>().updateTheme(ThemeMode.light);
+                              Fluttertoast.showToast(
+                                msg: "Light Mode Activated!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.black,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              );
                             },
                             child: ClipOval(
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur(sigmaX:10,sigmaY:10),
-                                  child: Container(
-                                    height: 70,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xff30393C).withOpacity(0.5),
-                                        shape:  BoxShape.circle
-                                    ),
-                                    child: SvgPicture.asset(
-                                      AppVectors.sun,
-                                      fit: BoxFit.none,
-                                    ),
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                child: Container(
+                                  height: 70,
+                                  width: 70,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff30393C).withOpacity(0.5),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    AppVectors.sun,
+                                    fit: BoxFit.none,
                                   ),
                                 ),
                               ),
+                            ),
                           ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Light Mode',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 17,
-                                  color: AppColors.grey
-                              ),
-                            )
-                          ]
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Light Mode',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 17,
+                              color: AppColors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -167,7 +155,7 @@ class ChooseModePage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ( BuildContext content ) => const ChooseModePage()
+                                builder: ( BuildContext content ) => const SignUpOrSignInPage()
                             )
                         );
                       },
@@ -177,7 +165,6 @@ class ChooseModePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }
