@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
+import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signin.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup.dart';
 
 class SignUpOrSignInPage extends StatelessWidget {
   const SignUpOrSignInPage({super.key});
@@ -13,18 +16,7 @@ class SignUpOrSignInPage extends StatelessWidget {
     return Scaffold(
           body: Stack(
             children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: SvgPicture.asset(
-                  AppVectors.topPattern
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: SvgPicture.asset(
-                    AppVectors.bottomPattern
-                ),
-              ),
+              const BasicAppbar(),
               Align(
                 alignment: Alignment.bottomLeft,
                 child: SvgPicture.asset(
@@ -56,7 +48,12 @@ class SignUpOrSignInPage extends StatelessWidget {
                             flex: 1,
                             child: BasicAppButton(
                               onPressed: (){
-
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>  SignupPage()
+                                  )
+                                );
                               },
                               title: 'Đăng ký',
                             ),
@@ -65,7 +62,14 @@ class SignUpOrSignInPage extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: TextButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>  SignInPage()
+                                      )
+                                  );
+                                },
                                 child: Text(
                                   'Đăng nhập',
                                   style:  TextStyle(
